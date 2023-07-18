@@ -1,0 +1,30 @@
+.input {
+  padding: 0.75rem;
+  border: solid rgba(251, 191, 36);
+  border-width: 2px;
+  border-radius: 0.5rem;
+  flex-grow: 1;
+}
+
+.input:focus {
+  outline: none;
+  border-color: rgba(217, 119, 6);
+}
+
+.button {
+  font-weight: 700;
+  color: white;
+  background-color: rgba(16, 185, 129);
+  width: 73px;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: rgba(52, 211, 153);
+  --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
