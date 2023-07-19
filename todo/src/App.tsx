@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import Todos from './components/Todos'
-import { Todo } from './Types/Todo.type'
+import { Todo } from './types/Todo.type'
 import Input from './components/Input'
 import Filter from './components/Filter'
 import Header from './components/Header'

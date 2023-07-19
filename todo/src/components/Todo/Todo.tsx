@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Todo } from '../../Types/Todo.type'
+import { Todo } from '../../types/Todo.type'
 import styles from './Todo.module.css'
 
 interface TodoComponentProps {
@@ -23,7 +23,7 @@ function TodoComponent(props: TodoComponentProps) {
     setDeleteVisible((prev) => !prev)
   }
 
-  console.log(deleteVisible)
+  // console.log(deleteVisible)
 
   return (
     <div className={styles.todo} onMouseOver={deleteMouseOver} onMouseLeave={deleteMouseLeave}>

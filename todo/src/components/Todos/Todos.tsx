@@ -1,5 +1,5 @@
 import TodoComponent from '../Todo/Todo'
-import { Todo } from '../../Types/Todo.type'
+import { Todo } from '../../types/Todo.type'
 import { useEffect, useState } from 'react'
 
 interface Props {
