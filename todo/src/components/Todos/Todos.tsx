@@ -2,15 +2,15 @@ import TodoComponent from '../Todo/Todo'
 import { Todo } from '../../types/Todo.type'
 import { useEffect, useState } from 'react'
 
-interface Props {
+interface TodosProps {
   todos: Todo[]
-  changeTodoCompleteSate: (id: number) => () => void
+  changeTodoCompleteState: (id: number) => () => void
   filter: 'all' | 'done' | 'todo'
   deleteTodoHandler: (id: number) => () => void
 }
 
-function Todos(props: Props) {
-  const { todos, changeTodoCompleteSate, filter, deleteTodoHandler } = props
+function Todos(props: TodosProps) {
+  const { todos, changeTodoCompleteState, filter, deleteTodoHandler } = props
   const [filterTodos, setFilterTodos] = useState(todos)
   useEffect(() => {
     setFilterTodos(
@@ -27,11 +27,11 @@ function Todos(props: Props) {
       {filterTodos.map((todo, index) => {
         return (
           <TodoComponent
-            changeTodoCompleteSate={changeTodoCompleteSate}
+            changeTodoCompleteState={changeTodoCompleteState}
             todo={todo}
             index={index}
             deleteTodoHandler={deleteTodoHandler}
-            key={todo.id}
+            key={todo.id} // Để react không báo lỗi thiếu key
           />
         )
       })}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
 import Todos from './components/Todos'
 import { Todo } from './types/Todo.type'
@@ -25,7 +25,7 @@ function App() {
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState<'all' | 'todo' | 'done'>('all')
 
-  const changeTodoCompleteSate = (id: number) => () => {
+  const changeTodoCompleteState = (id: number) => () => {
     setTodos((prev) => {
       return prev.map((todo) => {
         if (todo.id === id) {
@@ -35,8 +35,6 @@ function App() {
       })
     })
   }
-
-  // console.log(todos)
 
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value)
@@ -90,14 +88,12 @@ function App() {
         <Input input={input} inputChange={inputChange} todoSubmit={todoSubmit} />
         <div className='list-container'>
           <Filter filterSelection={filterSelection} />
-          <div className='list-content'>
-            <Todos
-              changeTodoCompleteSate={changeTodoCompleteSate}
-              todos={todos}
-              filter={filter}
-              deleteTodoHandler={deleteTodoHandler}
-            />
-          </div>
+          <Todos
+            changeTodoCompleteState={changeTodoCompleteState}
+            todos={todos}
+            filter={filter}
+            deleteTodoHandler={deleteTodoHandler}
+          />
         </div>
       </div>
     </div>

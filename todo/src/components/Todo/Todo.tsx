@@ -3,15 +3,15 @@ import { Todo } from '../../types/Todo.type'
 import styles from './Todo.module.css'
 
 interface TodoComponentProps {
-  changeTodoCompleteSate: (id: number) => () => void
+  changeTodoCompleteState: (id: number) => () => void
   todo: Todo
   index: number
   deleteTodoHandler: (id: number) => () => void
 }
 
 function TodoComponent(props: TodoComponentProps) {
+  const { changeTodoCompleteState, todo, index, deleteTodoHandler } = props
   const [deleteVisible, setDeleteVisible] = useState(false)
-  const { changeTodoCompleteSate, todo, index, deleteTodoHandler } = props
 
   const deleteMouseOver = () => {
     if (!deleteVisible) {
@@ -28,8 +28,7 @@ function TodoComponent(props: TodoComponentProps) {
   return (
     <div className={styles.todo} onMouseOver={deleteMouseOver} onMouseLeave={deleteMouseLeave}>
       <div
-        onClick={changeTodoCompleteSate(todo.id)}
-        key={todo.id}
+        onClick={changeTodoCompleteState(todo.id)}
         style={
           todo.done ? { textDecoration: 'line-through', color: '#9CA3AF', cursor: 'pointer' } : { cursor: 'pointer' }
         }
