@@ -7,23 +7,24 @@ interface TodoComponentProps {
   todo: Todo
   index: number
   deleteTodoHandler: (id: number) => () => void
+  editTodo: (todo: Todo) => () => void
 }
 
 function TodoComponent(props: TodoComponentProps) {
-  const { changeTodoCompleteState, todo, index, deleteTodoHandler } = props
-  const [deleteVisible, setDeleteVisible] = useState(false)
+  const { changeTodoCompleteState, todo, index, deleteTodoHandler, editTodo } = props
+  const [iconVisible, setIconVisible] = useState(false)
 
   const deleteMouseOver = () => {
-    if (!deleteVisible) {
-      setDeleteVisible(true)
+    if (!iconVisible) {
+      setIconVisible(true)
     }
   }
 
   const deleteMouseLeave = () => {
-    setDeleteVisible((prev) => !prev)
+    setIconVisible((prev) => !prev)
   }
 
-  // console.log(deleteVisible)
+  // console.log(iconVisible)
 
   return (
     <div className={styles.todo} onMouseOver={deleteMouseOver} onMouseLeave={deleteMouseLeave}>
@@ -35,15 +36,30 @@ function TodoComponent(props: TodoComponentProps) {
       >
         {index + 1}. {todo.content}
       </div>
-
-      <div onClick={deleteTodoHandler(todo.id)}>
+      <div>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
           strokeWidth='1.5'
           stroke='rgb(180, 83, 9)'
           fill='none'
-          style={{ opacity: deleteVisible ? 1 : 0 }}
+          style={{ opacity: iconVisible ? 1 : 0, marginRight: '0.5rem' }}
+          onClick={editTodo(todo)}
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125'
+          />
+        </svg>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 24 24'
+          strokeWidth='1.5'
+          stroke='rgb(180, 83, 9)'
+          fill='none'
+          style={{ opacity: iconVisible ? 1 : 0 }}
+          onClick={deleteTodoHandler(todo.id)}
         >
           <path
             strokeLinecap='round'

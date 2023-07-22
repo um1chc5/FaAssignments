@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './App.css'
 import Todos from './components/Todos'
 import { Todo } from './types/Todo.type'
@@ -24,6 +24,8 @@ function App() {
   const [todos, setTodos] = useState(todosInitial as Todo[])
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState<'all' | 'todo' | 'done'>('all')
+  const [isEdit, setIsEdit] = useState(false)
+  const [currentTodo, setCurrentTodo] = useState({} as Todo)
 
   const changeTodoCompleteState = (id: number) => () => {
     setTodos((prev) => {
@@ -42,6 +44,21 @@ function App() {
 
   const todoSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    // Trường hợp đang edit
+    if (isEdit) {
+      // console.log('edit')
+      setTodos((prev) => {
+        return prev.map((todo) =>
+          todo.id === currentTodo.id ? { id: currentTodo.id, content: input, done: currentTodo.done } : todo
+        )
+      })
+      setIsEdit(false)
+      setInput('')
+      return
+    }
+
+    // Trường hợp khi không edit
     if (input !== '') {
       setTodos((prev) => [...prev, { id: prev.length + 1, content: input, done: false }])
     }
@@ -65,16 +82,19 @@ function App() {
 
   const deleteTodoHandler = (id: number) => () => {
     setTodos((prev) => {
-      if (prev.length === 1) {
-        return []
-      }
-      return prev
-        .slice(0, id - 1)
-        .concat(prev.slice(id))
-        .map((todo, index) => {
-          return { ...todo, id: index + 1 }
-        })
+      return prev.filter((todo) => todo.id !== id).map((todo, index) => ({ ...todo, id: index + 1 }))
     })
+  }
+
+  // Reference của input element
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  const editTodo = (todo: Todo) => () => {
+    setInput(todo.content)
+    setCurrentTodo(todo)
+    setIsEdit(true)
+    inputRef.current?.focus()
+    // console.dir(inputRef.current)
   }
 
   useEffect(() => {
@@ -85,7 +105,7 @@ function App() {
     <div className='App'>
       <div className='todo-container'>
         <Header />
-        <Input input={input} inputChange={inputChange} todoSubmit={todoSubmit} />
+        <Input input={input} inputChange={inputChange} todoSubmit={todoSubmit} inputRef={inputRef} />
         <div className='list-container'>
           <Filter filterSelection={filterSelection} />
           <Todos
@@ -93,6 +113,7 @@ function App() {
             todos={todos}
             filter={filter}
             deleteTodoHandler={deleteTodoHandler}
+            editTodo={editTodo}
           />
         </div>
       </div>

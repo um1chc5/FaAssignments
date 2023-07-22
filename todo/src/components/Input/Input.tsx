@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styles from './Input.module.css'
+import { Todo } from '../../types/Todo.type'
 
 interface InputProps {
   todoSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   input: string
   inputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  inputRef: any
 }
 
 function Input(props: InputProps) {
-  const { todoSubmit, input, inputChange } = props
+  const { todoSubmit, input, inputChange, inputRef } = props
+
   return (
     <form action='' onSubmit={todoSubmit} style={{ display: 'flex', gap: '0.5rem' }}>
-      <input type='text' value={input} onChange={inputChange} className={styles.input} />
+      <input type='text' value={input} onChange={inputChange} className={styles.input} ref={inputRef} />
       <button className={styles.button}>
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' style={{ width: '16px' }}>
           <path

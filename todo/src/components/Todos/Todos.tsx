@@ -7,10 +7,11 @@ interface TodosProps {
   changeTodoCompleteState: (id: number) => () => void
   filter: 'all' | 'done' | 'todo'
   deleteTodoHandler: (id: number) => () => void
+  editTodo: (todo: Todo) => () => void
 }
 
 function Todos(props: TodosProps) {
-  const { todos, changeTodoCompleteState, filter, deleteTodoHandler } = props
+  const { todos, changeTodoCompleteState, filter, deleteTodoHandler, editTodo } = props
   const [filterTodos, setFilterTodos] = useState(todos)
   useEffect(() => {
     setFilterTodos(
@@ -31,6 +32,7 @@ function Todos(props: TodosProps) {
             todo={todo}
             index={index}
             deleteTodoHandler={deleteTodoHandler}
+            editTodo={editTodo}
             key={todo.id} // Để react không báo lỗi thiếu key
           />
         )
