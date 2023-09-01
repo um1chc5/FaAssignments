@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+  margin-top: 1rem;
+  border-bottom: 1px solid rgba(253, 230, 138);
+}
+
+.todo:hover {
+  cursor: pointer;
+}
+
+.todo > div:first-child {
+  font-family: 'Pangolin';
+  font-size: 1.5rem;
+  flex-grow: 1;
+}
+
+.todo > div:nth-child(2) svg {
+  height: 24px;
+  cursor: pointer;
+}
