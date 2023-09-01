@@ -18,7 +18,7 @@ function Todos(props: TodosProps) {
       todos.filter((todo) => {
         if (filter === 'todo' && !todo.done) return true
         if (filter === 'done' && todo.done) return true
-        if (filter === 'all') return true
+        return true
       })
     )
   }, [filter, todos])
