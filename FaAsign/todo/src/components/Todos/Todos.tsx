@@ -16,9 +16,7 @@ function Todos(props: TodosProps) {
   useEffect(() => {
     setFilterTodos(
       todos.filter((todo) => {
-        if (filter === 'todo' && !todo.done) return true
-        if (filter === 'done' && todo.done) return true
-        return true
+        return (filter === 'todo' && !todo.done) || (filter === 'done' && todo.done) || filter === 'all'
       })
     )
   }, [filter, todos])
